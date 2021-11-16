@@ -19,6 +19,7 @@ public class InMemoryPricePreProcessor implements PricePreProcessor {
     @Autowired
     PriceQueueManager queueManager;
 
+    @Override
     public void proceedAndEmitIfNeeded(PriceEvent e) {
         for (PricePreProcessorFilter filter : filters) {
             if (filter.filtered(e)) {
