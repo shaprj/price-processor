@@ -37,7 +37,6 @@ public class PriceBackPressureManager implements PriceQueueManager {
     @PostConstruct
     void init() {
         executorService = Executors.newFixedThreadPool(threadPoolSize);
-        System.out.println(1);
     }
 
     @Scheduled(fixedRate = 10)
