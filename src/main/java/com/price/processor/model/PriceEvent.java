@@ -10,9 +10,12 @@ import lombok.Setter;
 public class PriceEvent {
     private String ccyPair;
     private double rate;
+    private long timestamp;
 
     @Override
     public String toString() {
-        return String.format("PriceEvent(%s, %.2f)", ccyPair, rate);
+        return ccyPair.equals("EURRUB") ?
+                String.format(" ==!!!SLOW!!!== PriceEvent(%s, %.2f)", ccyPair, rate) :
+                String.format("PriceEvent(%s, %.2f)", ccyPair, rate);
     }
 }

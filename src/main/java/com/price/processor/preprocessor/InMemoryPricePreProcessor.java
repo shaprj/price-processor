@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @Slf4j
@@ -19,14 +20,23 @@ public class InMemoryPricePreProcessor implements PricePreProcessor {
     @Autowired
     PriceQueueManager queueManager;
 
+    private AtomicInteger eventsCount = new AtomicInteger(0);
+
     @Override
     public void proceedAndEmitIfNeeded(PriceEvent e) {
+
+        if(eventsCount.get() > 20){
+            return;
+        }
+
         for (PricePreProcessorFilter filter : filters) {
             if (filter.filtered(e)) {
-                log.info("Event {} filtered by {} ", e, filter.name());
                 return;
             }
         }
+
+        eventsCount.incrementAndGet();
+
         log.info("Event {} successfully preprocessed and emited to PriceThrottler", e);
         queueManager.push(e);
     }

@@ -18,6 +18,9 @@ public class S1 extends OnlyOnPriceSubscriber {
     @Autowired
     private PriceProcessor processor;
 
+    @Autowired
+    private ResultsMonitor monitor;
+
     @PostConstruct
     void subscribe() {
         processor.subscribe(this);
@@ -26,15 +29,9 @@ public class S1 extends OnlyOnPriceSubscriber {
     @SneakyThrows
     @Override
     public void onPrice(String ccyPair, double rate) {
-        if (firstTime.get() == true) {
-            firstTime.set(false);
-            Thread.sleep(30000);
-            log.info("-------------------");
-            log.info("-------------------");
-            log.info("-------------------");
-            log.info("-------------------");
-            log.info("-------------------");
-        }
-        log.info(String.format("S1: Rates changed: %s -> %.2f", ccyPair, rate));
+
+        Thread.sleep(30000);
+
+        monitor.notify(ccyPair, rate, "S1");
     }
 }

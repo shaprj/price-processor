@@ -19,7 +19,7 @@ public class PriceThrottler implements PriceProcessor {
 
     @Override
     public void onPrice(String ccyPair, double rate) {
-        subscriberMap.values().stream().forEach(p -> {
+        subscriberMap.values().parallelStream().forEach(p -> {
             if (p == this) {
                 return;
             }

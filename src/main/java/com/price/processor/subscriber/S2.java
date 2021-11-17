@@ -12,6 +12,9 @@ import javax.annotation.PostConstruct;
 public class S2 extends OnlyOnPriceSubscriber {
 
     @Autowired
+    private ResultsMonitor monitor;
+
+    @Autowired
     private PriceProcessor processor;
 
     @PostConstruct
@@ -21,6 +24,6 @@ public class S2 extends OnlyOnPriceSubscriber {
 
     @Override
     public void onPrice(String ccyPair, double rate) {
-        log.info(String.format("S2: Rates changed: %s -> %.2f", ccyPair, rate));
+        monitor.notify(ccyPair, rate, "S2");
     }
 }
