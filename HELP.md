@@ -1,18 +1,19 @@
-# Getting Started
+# Price processor
 
-### Reference Documentation
+### Description
 
-For further reference, please consider the following sections:
+We have 10 subscribers for test purposes.
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.6/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.6/gradle-plugin/reference/html/#build-image)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.5.6/reference/htmlsingle/#using-boot-devtools)
-* [Spring Configuration Processor](https://docs.spring.io/spring-boot/docs/2.5.6/reference/htmlsingle/#configuration-metadata-annotation-processor)
+Half of them spend 30 seconds for processing of event. 
 
-### Additional Links
+The others do it immediately.
 
-These additional references should also help you:
+ResultsMonitor object counts whether all of subscribers handle each curcur event.
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+The whole number of events for testing is 21. 
 
+This number consists of both fast and slow events.
+
+Fast events are produced in every 5 seconds. The slow events are produces in every 30 seconds.
+
+This test confirms that all generated events are delivered to all subscribers.
